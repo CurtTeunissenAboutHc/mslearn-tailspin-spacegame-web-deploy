@@ -73,6 +73,11 @@ stages:
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: drop
 
+    - script: |
+        last_scanned="last_scanned-$(date +%Y%m%d)"
+        echo "##vso[build.addbuildtag]$last_scanned"
+      displayName: 'Apply last scanned tag'
+
 - stage: 'Dev'
   displayName: 'Deploy to the dev environment'
   dependsOn: Build
